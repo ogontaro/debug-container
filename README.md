@@ -30,5 +30,5 @@ This command clones the original Pod and creates a new Pod (debug-container) for
 affecting the operation of the original Pod.
 
 ```bash
-kubectl debug {{TARGET_POD}} -it --image=ogontaro/debug-container --share-processes --copy-to=debug-container -- /bin/bash
+kubectl debug {{TARGET_POD}} -it --image=ogontaro/debug-container --share-processes --copy-to=debug-container -- /bin/bash; echo "Remember to delete the debug pod: kubectl delete pod debug-container"
 ```

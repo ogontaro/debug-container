@@ -27,5 +27,5 @@ kubectl debug {{TARGET_POD}} -it --image=ogontaro/debug-container --share-proces
 このコマンドは、元のPodを複製して新しいPod (`debug-container`) を作成し、そこでデバッグを行います。これにより、元のPodの動作に影響を与えずにデバッグが可能です。
 
 ```bash
-kubectl debug {{TARGET_POD}} -it --image=ogontaro/debug-container --share-processes --copy-to=debug-container -- /bin/bash
+kubectl debug {{TARGET_POD}} -it --image=ogontaro/debug-container --share-processes --copy-to=debug-container -- /bin/bash; echo "Remember to delete the debug pod: kubectl delete pod debug-container"
 ```
