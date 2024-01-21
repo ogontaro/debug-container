@@ -1,3 +1,5 @@
+![build workflow](https://github.com/ogontaro/debug-container/actions/workflows/build-and-push.yml/badge.svg)
+
 # debug-container
 
 `debug-container` は Kubernetes クラスター内の Pod をデバッグするために使用されるコンテナイメージです。
