@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y \
     git \
     vim \
     curl \
+    wget \
     lsof \
     net-tools \
     gdb \
