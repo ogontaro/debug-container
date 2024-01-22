@@ -23,9 +23,9 @@ jobs:
           MATRIX="[]"
           for dir in */; do
             if [ -f "${dir}build-params.ts" ]; then
-              PARAMS=$(deno run -A "${dir}build-params.ts")
+              PARAMS=$(deno run -A "${dir}build-params.ts" | sed 's/"/\\"/g')  # エスケープを追加
               # Include 'dir' in the matrix definition
-              MATRIX=$(echo "${MATRIX}" | jq -c ". + ({dir: \"${dir}\", ${PARAMS}})")
+              MATRIX=$(echo "${MATRIX}" | jq -c ". + ({\"dir\": \"${dir}\", ${PARAMS}})")  # JSON キーをエスケープ
             fi
           done
           echo "matrix=${MATRIX}"
