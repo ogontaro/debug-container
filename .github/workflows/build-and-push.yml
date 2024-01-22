@@ -27,6 +27,7 @@ jobs:
               MATRIX=$(echo "${MATRIX}" | jq -c ". + (${PARAMS})")
             fi
           done
+          echo "matrix=${MATRIX}"
           echo "matrix=${MATRIX}" >> $GITHUB_OUTPUT
 
   build-and-push:
@@ -34,7 +35,7 @@ jobs:
     needs: prepare
     strategy:
       matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
-      fail-fast: false
+      fail-fast: true
     steps:
       - uses: actions/checkout@v4
       - name: Set up Docker Buildx
