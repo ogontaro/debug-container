@@ -23,7 +23,7 @@ jobs:
           MATRIX="[]"
           for dir in */; do
             if [ -f "${dir}build-params.ts" ]; then
-              PARAMS=$(deno run --allow-read "${dir}build-params.ts")
+              PARAMS=$(deno run -A "${dir}build-params.ts")
               MATRIX=$(echo "${MATRIX}" | jq -c ". + (${PARAMS})")
             fi
           done
