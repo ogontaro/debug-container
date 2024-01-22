@@ -24,11 +24,11 @@ RUN wget https://github.com/helmfile/helmfile/releases/download/v0.160.0/helmfil
     && mv helmfile /usr/local/bin \
     && chmod +x /usr/local/bin/helmfile
 
-RUN helm plugin install https://github.com/databus23/helm-diff \
-    helm plugin install https://github.com/jkroepke/helm-secrets --version v3.10.0 \
-    helm plugin install https://github.com/hypnoglow/helm-s3.git \
-    helm plugin install https://github.com/aslafy-z/helm-git.git \
-    helm plugin install https://github.com/quintush/helm-unittest
+RUN helm plugin install https://github.com/databus23/helm-diff
+RUN helm plugin install https://github.com/jkroepke/helm-secrets --version v3.10.0
+RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
+RUN helm plugin install https://github.com/aslafy-z/helm-git.git
+RUN helm plugin install https://github.com/quintush/helm-unittest
 
 RUN chmod -R 777 /opt/helm
 

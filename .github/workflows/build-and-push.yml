@@ -41,5 +41,5 @@ jobs:
         with:
           push: true
           context: ./${{ matrix.dir }}
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
           tags: ogontaro/${{ matrix.dir }}:latest
