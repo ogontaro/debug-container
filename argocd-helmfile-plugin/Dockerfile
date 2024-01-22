@@ -30,7 +30,7 @@ RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
 RUN helm plugin install https://github.com/aslafy-z/helm-git.git
 RUN helm plugin install https://github.com/quintush/helm-unittest
 
-RUN chmod -R 777 /opt/helm
+RUN chmod -R 666 /opt/helm
 
 WORKDIR /workspace
 
