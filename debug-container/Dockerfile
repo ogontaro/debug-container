@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -y \
     wget \
     lsof \
     net-tools \
+    iputils-ping \
+    nmap \
     gdb \
     strace \
     && apt-get clean \
