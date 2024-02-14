@@ -17,7 +17,7 @@ jobs:
       - name: set-images
         id: set-images
         run: |
-          DIRS=$(ls -l | grep '^d' | awk '{print $9}' | jq -R -s -c 'split("\n")[:-1]')
+          DIRS=$(find . -type f -name 'params.json' -exec dirname {} \; | jq -R -s -c 'split("\n")[:-1]')
           echo "dir=${DIRS}" >> $GITHUB_OUTPUT
   build-and-push:
     runs-on: ubuntu-latest
@@ -34,12 +34,41 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Read parameters from JSON
+        id: params
+        working-directory: ${{ matrix.dir }}
+        run: |
+          content=$(cat params.json)
+          repository=$(echo $content | jq -r '.repository')
+          echo "repository: $repository"
+          echo "platforms=$(echo $content | jq -r '.platforms | join(",")')" >> $GITHUB_OUTPUT
+          echo "platforms: $(echo $content | jq -r '.platforms | join(",")')"
+          use_latest=$(echo $content | jq -r '.tags.useLatest // true')
+          raw_tag=$(echo $content | jq -r '.tags.raw // "null"')
+          tags=""
+          if [ "$use_latest" == "true" ]; then
+            tags="$repository:latest"
+          fi
+          if [ "$raw_tag" != "null" ]; then
+            if [ -n "$tags" ]; then
+              tags="$tags,$repository:$raw_tag"
+            else
+              tags="$repository:$raw_tag"
+            fi
+          fi
+          echo "tags=$tags" >> $GITHUB_OUTPUT
+          echo "tags: $tags"
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           push: true
           context: ./${{ matrix.dir }}
-          platforms: linux/amd64
-          tags: ogontaro/${{ matrix.dir }}:latest
+          platforms: ${{ steps.params.outputs.platforms }}
+          tags: ${{ steps.params.outputs.tags }}
+          labels: |
+            org.opencontainers.image.authors=ogontaro <ogontaro@gmail.com>
+            org.opencontainers.image.url=https://github.com/ogontaro/Dockerfiles/${{ matrix.dir }}
+            org.opencontainers.image.source=https://github.com/ogontaro/Dockerfile/${{ matrix.dir }}
+            org.opencontainers.image.created=${{ steps.params.outputs.created }}

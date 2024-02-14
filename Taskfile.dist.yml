@@ -1,0 +1,13 @@
+version: '3'
+
+tasks:
+  default:
+    desc: show commands
+    cmds:
+      - task -l --sort none
+  build:
+    desc: build Dockerfile
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - pwd
+      - docker build .

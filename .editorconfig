@@ -1,0 +1,16 @@
+# https://qiita.com/takeshisakuma/items/c22b59a5e394b4ce6cee
+root = true # ルートディレクトリに配置された.editorconfigを読み込む
+
+[*] # すべてのファイルに適用
+charset = utf-8 # 文字コードをUTF-8に統一
+indent_style = space # インデントにはスペースを使う
+indent_size = 2 # インデント幅を2に設定
+trim_trailing_whitespace = true # 行末の空白を削除
+insert_final_newline = true # ファイルの最後に改行を挿入
+end_of_line = lf # 改行コードをLFに統一
+
+[*.md]
+trim_trailing_whitespace = false # Markdownファイルでは行末の空白を削除しない
+
+[Makefile]
+indent_style = tab # Makefileではインデントにタブを使う

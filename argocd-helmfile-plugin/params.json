@@ -1,0 +1,11 @@
+{
+  "repository": "ogontaro/argocd-helmfile-plugin",
+  "platforms": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "tags": {
+    "useLatest": true,
+    "raw": "1.0.0"
+  }
+}
