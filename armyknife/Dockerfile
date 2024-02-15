@@ -26,5 +26,3 @@ COPY --from=deno /deno /usr/local/bin/deno
 COPY --from=kubectl /opt/bitnami/kubectl/bin/kubectl /usr/bin/kubectl
 
 WORKDIR /workspace
-
-CMD ["tail", "-f", "/dev/null"]
