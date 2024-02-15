@@ -1,5 +1,5 @@
 {
-  "repository": "ogontaro/debug-container",
+  "repository": "ogontaro/armyknife",
   "platforms": [
     "linux/amd64",
     "linux/arm64"
