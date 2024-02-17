@@ -6,8 +6,12 @@ tasks:
     cmds:
       - task -l --sort none
   build:
-    desc: build Dockerfile
+    desc: Build the Dockerfile in the current directory and tag it with the directory name. Additional Docker build arguments can be passed using CLI_ARGS.
     dir: '{{.USER_WORKING_DIR}}'
     cmds:
-      - pwd
-      - docker build .
+      - docker build . --tag $(basename '{{.USER_WORKING_DIR}}') {{.CLI_ARGS}}
+  run:
+    desc: Build the Dockerfile in the current directory and tag it with the directory name. Additional Docker build arguments can be passed using CLI_ARGS.
+    dir: '{{.USER_WORKING_DIR}}'
+    cmds:
+      - docker run -it -v $(pwd):/workspace --rm $(basename '{{.USER_WORKING_DIR}}') {{.CLI_ARGS}}

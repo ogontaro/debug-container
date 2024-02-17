@@ -1,0 +1,11 @@
+{
+  "repository": "ogontaro/armyknife",
+  "platforms": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "tags": {
+    "useLatest": false,
+    "raw": "root"
+  }
+}

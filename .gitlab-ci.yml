@@ -1,0 +1,77 @@
+stages:
+  - test
+  - build
+
+variables:
+  DOCKER_AUTH_CONFIG: |
+    {
+      "credHelpers": {
+        "441161648962.dkr.ecr.ap-northeast-1.amazonaws.com": "ecr-login"
+      }
+    }
+
+test-image-buildable:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - set eux
+    - echo "{\"credsStore\":\"ecr-login\"}" > /kaniko/.docker/config.json
+    - |
+      for DIR in $(find . -type f -name 'params.json' -exec dirname {} \;); do
+        echo "Building and pushing image for directory: ${DIR}"
+        PARAMS="${DIR}/params.json"
+        REPOSITORY=$(grep -oP '"repository": "\K[^"]*' $PARAMS)
+        PLATFORMS=$(grep -oP '"platforms": \[\K[^\]]*' $PARAMS | tr -d '"' | tr ',' '\n' | paste -sd "," -)
+        USE_LATEST=$(grep -oP '"useLatest": \K\w*' $PARAMS)
+        RAW_TAG=$(grep -oP '"raw": "\K[^"]*' $PARAMS)
+        TAGS=""
+        if [ "$USE_LATEST" = "true" ]; then
+          TAGS="$REPOSITORY:latest"
+        fi
+        if [ "$RAW_TAG" != "null" ]; then
+          if [ -n "$TAGS" ]; then
+            TAGS="$TAGS,$REPOSITORY:$RAW_TAG"
+          else
+            TAGS="$REPOSITORY:$RAW_TAG"
+          fi
+        fi
+        /kaniko/executor --context ${DIR} --destination ${TAGS} --platforms ${PLATFORMS}
+      done
+  rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != "" && $CI_COMMIT_BRANCH != "main" && $CI_COMMIT_BRANCH != "develop"
+
+
+build-image_and_push:
+  stage: deploy
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - set eux
+    - echo "{\"credsStore\":\"ecr-login\"}" > /kaniko/.docker/config.json
+    - |
+      for DIR in $(find . -type f -name 'params.json' -exec dirname {} \;); do
+        echo "Building and pushing image for directory: ${DIR}"
+        PARAMS="${DIR}/params.json"
+        REPOSITORY=$(grep -oP '"repository": "\K[^"]*' $PARAMS)
+        PLATFORMS=$(grep -oP '"platforms": \[\K[^\]]*' $PARAMS | tr -d '"' | tr ',' '\n' | paste -sd "," -)
+        USE_LATEST=$(grep -oP '"useLatest": \K\w*' $PARAMS)
+        RAW_TAG=$(grep -oP '"raw": "\K[^"]*' $PARAMS)
+        TAGS=""
+        if [ "$USE_LATEST" = "true" ]; then
+          TAGS="$REPOSITORY:latest"
+        fi
+        if [ "$RAW_TAG" != "null" ]; then
+          if [ -n "$TAGS" ]; then
+            TAGS="$TAGS,$REPOSITORY:$RAW_TAG"
+          else
+            TAGS="$REPOSITORY:$RAW_TAG"
+          fi
+        fi
+        /kaniko/executor --context ${DIR} --destination ${TAGS} --platforms ${PLATFORMS}
+      done
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "develop"
