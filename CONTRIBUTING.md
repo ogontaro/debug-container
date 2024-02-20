@@ -7,11 +7,11 @@
 
 ## Build Image Locally
 
-To build the image, run the following command: `task build`
+To build the image, navigate to the subdirectory containing the Dockerfile and run the following command: `task build`
 
 ### Passing Arguments to Docker Build
 
-To pass arguments to the Docker build, use the following syntax: `task build -- DOCKERF_BUILD_ARGS`
+To pass arguments to the Docker build, use the following syntax: `task build -- DOCKER_BUILD_ARGS`
 
 For example:
 `task build -- --build-arg HOGE=hello`
