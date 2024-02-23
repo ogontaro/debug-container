@@ -1,0 +1,10 @@
+{
+  "repository": "ogontaro/actions-runner",
+  "platforms": [
+    "linux/amd64",
+    "linux/arm64"
+  ],
+  "tags": {
+    "useLatest": true
+  }
+}
