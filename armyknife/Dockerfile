@@ -1,5 +1,6 @@
 FROM denoland/deno:bin AS deno
 FROM bitnami/kubectl:latest AS kubectl
+FROM mikefarah/yq:latest AS yq
 
 FROM ubuntu:22.04
 
@@ -37,6 +38,7 @@ RUN apt-get update && apt-get install -y \
 # Install CLI tools
 COPY --from=deno /deno /usr/local/bin/deno
 COPY --from=kubectl /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
+COPY --from=yq /usr/bin/yq /usr/local/bin/yq
 
 # Use fish for default
 RUN chsh -s /usr/bin/fish
