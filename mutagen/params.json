@@ -1,0 +1,9 @@
+{
+  "repository": "ogontaro/mutagen",
+  "platforms": [
+    "linux/amd64"
+  ],
+  "tags": {
+    "useLatest": true
+  }
+}
