@@ -69,6 +69,7 @@ cat <<EOF >>~/.config/fish/config.fish
 source /usr/share/fish/vendor_functions.d/fzf_key_bindings.fish
 if status is-interactive
     fzf_key_bindings
+    bind \cf fzf-cd-widget
 end
 EOF
 
