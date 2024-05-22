@@ -19,14 +19,14 @@ The Docker image can be obtained from the following repository:
 
 ## About the Tag
 
-`ArmyKnife` provides the following two tags:
+`ArmyKnife` provides the following tags:
 
 - `latest` tag: This tag operates as a non-root user named `knife`. It always includes the latest tools and security patches, eliminating the opportunity to use older versions of the image to ensure the highest level of security and functionality.
 - `slim` tag: This tag is a lightweight version of the image, with some of the heavier packages removed. It is useful for environments with limited resources or for users who prefer a minimalistic setup.
 - `root` tag: This tag is used when you want to run the container as the root user. It is useful for specific operations that require root privileges.
 
-`ArmyKnife` only offers these two tags. This is a deliberate choice to ensure that users always have access to the latest tools and security patches, aiming to keep the development environment up-to-date. This policy prioritizes security.
-This version separates the explanations for the latest and root tags and clarifies the reason for providing only these two tags.
+`ArmyKnife` only offers these tags. This is a deliberate choice to ensure that users always have access to the latest tools and security patches, aiming to keep the development environment up-to-date. This policy prioritizes security.
+This version separates the explanations for the latest and root tags and clarifies the reason for providing only these tags.
 
 ## Build Frequency
 
