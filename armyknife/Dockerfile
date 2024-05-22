@@ -2,7 +2,7 @@ FROM denoland/deno:bin AS deno
 FROM bitnami/kubectl:latest AS kubectl
 FROM mikefarah/yq:latest AS yq
 
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
