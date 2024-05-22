@@ -1,5 +1,3 @@
-FROM denoland/deno:bin AS deno
-FROM bitnami/kubectl:latest AS kubectl
 FROM mikefarah/yq:latest AS yq
 
 FROM ubuntu:22.04
@@ -8,22 +6,18 @@ ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && apt-get install -y \
-    awscli \
     bat \
     curl \
+    gdb \
     git \
     dnsutils \
     fd-find \
     fzf \
     htop \
     iproute2 \
-    lsof \
-    jq \
     fish \
     ncdu \
     net-tools \
-    python3 \
-    python3-pip \
     ripgrep \
     strace \
     tree \
@@ -35,8 +29,6 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install CLI tools
-COPY --from=deno /deno /usr/local/bin/deno
-COPY --from=kubectl /opt/bitnami/kubectl/bin/kubectl /usr/local/bin/kubectl
 COPY --from=yq /usr/bin/yq /usr/local/bin/yq
 
 # Use fish for default
