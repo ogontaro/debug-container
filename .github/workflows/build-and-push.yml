@@ -45,7 +45,7 @@ jobs:
           echo "repository: $repository"
           echo "platforms=$(echo $content | jq -r '.platforms | join(",")')" >> $GITHUB_OUTPUT
           echo "platforms: $(echo $content | jq -r '.platforms | join(",")')"
-          use_latest=$(echo $content | jq -r '.tags.useLatest // true')
+          use_latest=$(echo $content | jq -r '.tags.useLatest')
           raw_tag=$(echo $content | jq -r '.tags.raw // "null"')
           tags=""
           if [ "$use_latest" == "true" ]; then
