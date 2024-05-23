@@ -71,6 +71,8 @@ if status is-interactive
     fzf_key_bindings
     bind \cf fzf-cd-widget
 end
+export FZF_CTRL_T_COMMAND='rg --files --hidden --follow -uu'
+export FZF_CTRL_T_OPTS='--preview "bat  --color=always --style=header,grid --line-range :100 {}"'
 EOF
 
 # Execute the passed command
