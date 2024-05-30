@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     gdb \
     git \
     dnsutils \
+    duf \
     fd-find \
     fzf \
     htop \

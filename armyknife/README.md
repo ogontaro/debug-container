@@ -45,6 +45,7 @@ The following tools are pre-installed:
 - `bat` An enhanced version of the `cat` command, with features like syntax highlighting and Git integration.
 - `curl` A command-line tool for transferring data using URLs.
 - `dnsutils` A collection of DNS utilities including `dig`, `nslookup`, and `host`.
+- `duf` A disk usage utility with a user-friendly interface, showing disk usage, available space, and other details in a clear format.
 - `fd` A fast and user-friendly file search tool.
 - `fzf` A tool for fuzzy searching on the command line.
 - `git` A widely used distributed version control system for source code management.
