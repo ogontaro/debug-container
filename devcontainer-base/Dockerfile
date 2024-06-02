@@ -11,6 +11,8 @@ RUN apt-get update && apt-get install -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
+RUN gpasswd -a knife docker
+
 COPY --from=tilt /usr/local/bin/tilt /usr/local/bin/tilt
 
 COPY init-scripts/*.sh /opt/armyknife/init/
