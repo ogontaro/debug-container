@@ -46,12 +46,14 @@ RUN ln -s /usr/bin/fdfind /usr/bin/fd
 RUN groupadd -r knife --gid 1000 && useradd --no-log-init -r -m -g knife knife --uid 1000
 RUN mkdir /workspace && chown -R knife:knife /workspace
 
+RUN mkdir -p /opt/armyknife/init/
+COPY init-scripts/*.sh /opt/armyknife/init/
+COPY entrypoint.sh /entrypoint.sh
+
 # knife user
 USER 1000
 
 WORKDIR /workspace
 
-COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-
 CMD ["/bin/fish"]
