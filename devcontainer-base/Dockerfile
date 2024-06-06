@@ -1,19 +1,13 @@
 FROM docker/tilt:latest AS tilt
+FROM docker:cli AS docker-cli
 FROM ogontaro/armyknife:sudo
 
 USER root
-ENV TZ=Etc/UTC
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-RUN apt-get update && apt-get install -y \
-  docker \
-  docker-compose \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
-
-RUN gpasswd -a knife docker
+RUN groupadd docker && gpasswd -a knife docker
 
 COPY --from=tilt /usr/local/bin/tilt /usr/local/bin/tilt
+COPY --from=docker-cli /usr/local/bin/docker /usr/local/bin/docker
+COPY --from=docker-cli /usr/local/bin/docker-compose /usr/local/bin/docker-compose
 
 COPY init-scripts/*.sh /opt/armyknife/init/
 
