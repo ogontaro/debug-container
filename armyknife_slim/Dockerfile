@@ -51,8 +51,7 @@ RUN mkdir -p /opt/armyknife/init/
 COPY init-scripts/*.sh /opt/armyknife/init/
 COPY entrypoint.sh /entrypoint.sh
 
-# knife user
-USER 1000
+USER knife
 
 WORKDIR /workspace
 
