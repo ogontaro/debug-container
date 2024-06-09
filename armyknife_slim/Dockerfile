@@ -33,8 +33,6 @@ RUN apt-get update && apt-get install -y \
 # Install CLI tools
 COPY --from=yq /usr/bin/yq /usr/local/bin/yq
 
-# Use fish for default
-RUN chsh -s /usr/bin/fish
 RUN fish -c "curl -sL https://git.io/fisher | source ; fisher install jorgebucaran/fisher"
 
 # apg-get install bat to batcat
@@ -44,7 +42,7 @@ RUN ln -s /usr/bin/batcat /usr/bin/bat
 # apg-get install fdfind to fd
 RUN ln -s /usr/bin/fdfind /usr/bin/fd
 
-RUN groupadd -r knife --gid 1000 && useradd --no-log-init -r -m -g knife knife --uid 1000
+RUN groupadd -r knife --gid 1000 && useradd --no-log-init -r -m -g knife knife --uid 1000 -s /usr/bin/fish
 RUN mkdir /workspace && chown -R knife:knife /workspace
 
 RUN mkdir -p /opt/armyknife/init/
