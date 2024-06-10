@@ -9,4 +9,4 @@ RUN apt-get update && apt-get install -y \
 RUN echo "knife ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/knife
 
 # knife user
-USER 1000
+USER knife
