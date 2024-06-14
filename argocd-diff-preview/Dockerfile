@@ -1,6 +1,8 @@
 FROM mikefarah/yq:latest AS yq
 FROM node:lts-slim
 
+ARG TARGETPLATFORM
+
 ENV TZ=Asia/Tokyo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
