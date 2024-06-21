@@ -5,10 +5,10 @@ FROM ogontaro/armyknife:sudo
 USER root
 
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    pipx \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+  build-essential \
+  pipx \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN groupadd docker && gpasswd -a knife docker
 
@@ -21,6 +21,8 @@ COPY init-scripts/*.sh /opt/armyknife/init/
 
 USER knife
 RUN git clone --quiet --depth 1 https://github.com/asdf-vm/asdf.git ~/.asdf \
-    && mkdir -p ~/.config/fish/completions \
-    && echo "source ~/.asdf/asdf.fish" >> ~/.config/fish/config.fish \
-    && ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+  && mkdir -p ~/.config/fish/completions \
+  && echo "source ~/.asdf/asdf.fish" >> ~/.config/fish/config.fish \
+  && ln -s ~/.asdf/completions/asdf.fish ~/.config/fish/completions
+
+RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
