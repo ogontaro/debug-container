@@ -8,33 +8,30 @@ ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && apt-get install -y \
-    awscli \
-    bat \
-    ca-certificates \
-    curl \
-    git \
-    dnsutils \
-    duf \
-    fd-find \
-    fzf \
-    htop \
-    iproute2 \
-    lsof \
-    jq \
-    fish \
-    ncdu \
-    net-tools \
-    python3 \
-    python3-pip \
-    ripgrep \
-    strace \
-    tree \
-    tmux \
-    unzip \
-    vim \
-    wget \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+  bat \
+  ca-certificates \
+  curl \
+  git \
+  dnsutils \
+  duf \
+  fd-find \
+  fzf \
+  htop \
+  iproute2 \
+  lsof \
+  jq \
+  fish \
+  ncdu \
+  net-tools \
+  ripgrep \
+  strace \
+  tree \
+  tmux \
+  unzip \
+  vim \
+  wget \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install CLI tools
 COPY --from=deno /deno /usr/local/bin/deno
@@ -49,6 +46,19 @@ RUN ln -s /usr/bin/batcat /usr/bin/bat
 
 # apg-get install fdfind to fd
 RUN ln -s /usr/bin/fdfind /usr/bin/fd
+
+# install aws-cli v2
+RUN ARCH=$(uname -m) && \
+  if [ "$ARCH" = "x86_64" ]; then \
+  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"; \
+  elif [ "$ARCH" = "aarch64" ]; then \
+  curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"; \
+  else \
+  echo "Unsupported architecture: $ARCH" && exit 1; \
+  fi && \
+  unzip awscliv2.zip && \
+  ./aws/install && \
+  rm -rf awscliv2.zip aws
 
 RUN groupadd -r knife --gid 1000 && useradd --no-log-init -r -m -g knife knife --uid 1000 -s /usr/bin/fish
 RUN mkdir /workspace && chown -R knife:knife /workspace
