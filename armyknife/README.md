@@ -63,6 +63,7 @@ The following tools are pre-installed:
 - `unzip` A tool for extracting files from ZIP archives.
 - `vim` An advanced text editor with syntax highlighting and code completion support for many programming languages.
 - `wget` A utility for non-interactive download of files from the web.
+- `zoxide` A smart and fast `cd` command replacement that tracks your most visited directories and allows quick navigation using minimal input.
 
 ## Shell
 

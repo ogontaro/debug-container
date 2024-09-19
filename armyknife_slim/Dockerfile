@@ -6,29 +6,30 @@ ENV TZ=Etc/UTC
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && apt-get install -y \
-    bat \
-    ca-certificates \
-    curl \
-    gdb \
-    git \
-    dnsutils \
-    duf \
-    fd-find \
-    fzf \
-    htop \
-    iproute2 \
-    fish \
-    ncdu \
-    net-tools \
-    ripgrep \
-    strace \
-    tree \
-    tmux \
-    unzip \
-    vim \
-    wget \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+  bat \
+  ca-certificates \
+  curl \
+  gdb \
+  git \
+  dnsutils \
+  duf \
+  fd-find \
+  fzf \
+  htop \
+  iproute2 \
+  fish \
+  ncdu \
+  net-tools \
+  ripgrep \
+  strace \
+  tree \
+  tmux \
+  unzip \
+  vim \
+  wget \
+  zoxide \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 # Install CLI tools
 COPY --from=yq /usr/bin/yq /usr/local/bin/yq

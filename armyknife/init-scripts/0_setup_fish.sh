@@ -12,4 +12,6 @@ if status is-interactive
 end
 export FZF_CTRL_T_COMMAND='rg --files --hidden --follow -uu'
 export FZF_CTRL_T_OPTS='--preview "bat  --color=always --style=header,grid --line-range :100 {}"'
+
+zoxide init fish | source
 EOF
