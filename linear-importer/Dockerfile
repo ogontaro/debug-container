@@ -1,4 +1,4 @@
-FROM node:20.18-slim
+FROM node:22.13-slim
 
 RUN npm i -g @linear/import
 
